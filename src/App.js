@@ -4,7 +4,6 @@ import { RecoilRoot } from "recoil";
 import { MantineProvider } from "@mantine/core";
 import { JobList } from "./components/JobList";
 import { HeaderBar } from "./components/Common";
-import { EditJob } from "./components/EditJob";
 import { CreateJob } from "./components/CreateJob";
 import { ViewJob } from "./components/ViewJob";
 
@@ -30,7 +29,6 @@ const App = () => {
             element={<CreateJob active={active} setActive={setActive} />}
           />
           <Route path="jobs/:id" element={<ViewJob />} />
-          <Route path="jobs/edit/:id" element={<EditJob />} />
         </Routes>
       </RecoilRoot>
     </MantineProvider>

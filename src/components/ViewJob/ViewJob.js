@@ -1,103 +1,126 @@
-import { filteredJobListState, jobListState } from "../../state/atoms";
+import { jobListState } from "../../state/atoms";
 import { useRecoilState } from "recoil";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import {
-    Text,
-    Stack,
-    Container,
-    Button,
-    Badge,
-    Modal,
-    Select,
-} from "@mantine/core";
+import { Table } from "@mantine/core";
+import { Container, Button, Badge, Modal, Select } from "@mantine/core";
 import { useForm } from "@mantine/form";
-// import { formatDate } from "../../utils/formatDate";
+import { formatDate } from "../../utils/formatDate";
 
-const replaceItemAtIndex = (arr, index, newValue) => {
-    return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)];
+const replaceJobAtIndex = (arr, index, newValue) => {
+  return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)];
 };
 
 export const ViewJob = () => {
-    const { id } = useParams();
-    const [jobList, setJobList] = useRecoilState(jobListState);
-    const [viewedJob, setViewedJob] = useState({});
-    const index = jobList.findIndex(viewedJob);
-    const [opened, setOpened] = useState(false);
+  const { id } = useParams();
+  const [jobList, setJobList] = useRecoilState(jobListState);
+  const [viewedJob, setViewedJob] = useState({});
+  const [opened, setOpened] = useState(false);
 
-    useEffect(() => {
-        const findJob = () => {
-            const foundJob = jobList.find((obj) => obj.jobId === id);
-            setViewedJob(foundJob);
-        };
-        findJob();
-    }, [id, jobList]);
+  const tableItems = [
+    { title: "Job ID", information: viewedJob.jobId },
+    { title: "Job Name", information: viewedJob.jobName },
+    { title: "Client Name", information: viewedJob.clientName },
+    { title: "Client Mobile", information: viewedJob.clientPhoneNumber },
+    { title: "Client Email", information: viewedJob.clientEmail },
+    // { title: "Created Date", information: formatDate(viewedJob.createdDate) },
+    // viewedJob.notes.map((obj) => {
+    //   return { title: "Notes", information: obj.note };
+    // }),
+  ];
 
-    const form = useForm({
-        initialValues: {
-            status: viewedJob.status,
-        },
+  const rows = tableItems.map((item) => (
+    <tr key={item.name}>
+      <td>{item.title}</td>
+      <td>{item.information}</td>
+    </tr>
+  ));
+
+  useEffect(() => {
+    const findJob = () => {
+      const foundJob = jobList.find((obj) => obj.jobId === id);
+      setViewedJob(foundJob);
+    };
+    findJob();
+  }, [id, jobList]);
+
+  const form = useForm({
+    initialValues: {
+      jobId: viewedJob.jobId,
+      createdDate: viewedJob.createdDate,
+      clientName: viewedJob.clientName,
+      clientEmail: viewedJob.clientEmail,
+      jobName: viewedJob.jobName,
+      clientPhoneNumber: viewedJob.clientPhoneNumber,
+      notes: viewedJob.notes,
+      status: viewedJob.status,
+    },
+  });
+
+  const handleSubmit = (values, jobItem) => {
+    const index = jobList.findIndex((item) => item === jobItem);
+    const updatedJobList = replaceJobAtIndex(jobList, index, {
+      status: jobItem.status,
+      ...values,
     });
 
-    const handleSubmit = (values) => {
-        const newList = replaceItemAtIndex(jobList, index, {
-            ...viewedJob,
-            ...values,
-        });
+    setJobList(updatedJobList);
+    setOpened(false);
+  };
 
-        setJobList(newList);
-        // setViewedJob({ ...viewedJob, values });
-        // setJobList([...jobList, viewedJob]);
-        setOpened(false);
-    };
-
-    return (
-        <Container mt="2rem">
-            <Text>{viewedJob.jobId}</Text>
-            <Badge>{viewedJob.status}</Badge>
-            <Stack>
-                <Text>{viewedJob.jobName}</Text>
-                <Text>{viewedJob.clientName}</Text>
-                <Text>{viewedJob.clientPhoneNumber}</Text>
-                <Text>{viewedJob.clientEmail}</Text>
-                {/* {viewedJob.notes.map((obj) => (
-                    <Text key={obj.key}>{obj.note}</Text>
-                ))} */}
-                {/* <Text>{formatDate(viewedJob.createdDate)}</Text> */}
-            </Stack>
-            <Button color="orange" onClick={() => setOpened(true)}>
-                Edit
-            </Button>
-            <Modal
-                opened={opened}
-                onClose={() => setOpened(false)}
-                title="Update the job"
-            >
-                <form onSubmit={form.onSubmit(handleSubmit)}>
-                    <Select
-                        label="Change job status"
-                        placeholder="Select a status"
-                        data={[
-                            { value: "scheduled", label: "scheduled" },
-                            { value: "active", label: "active" },
-                            { value: "invoicing", label: "invoicing" },
-                            { value: "priced", label: "priced" },
-                            { value: "completed", label: "completed" },
-                        ]}
-                        {...form.getInputProps("status")}
-                        // className={classes.input}
-                    />{" "}
-                    <Button
-                        radius="xl"
-                        size="md"
-                        mt="1rem"
-                        type="submit"
-                        // className={classes.control}
-                    >
-                        Update job
-                    </Button>
-                </form>
-            </Modal>
-        </Container>
-    );
+  return (
+    <Container mt="2rem" size="xs">
+      <Badge
+        variant="filled"
+        color={viewedJob.status === "completed" ? "red" : "gray"}
+      >
+        {viewedJob.status}
+      </Badge>
+      <Table mt="1rem" mb="1rem">
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </Table>
+      <Button color="orange" onClick={() => setOpened(true)}>
+        Edit job
+      </Button>
+      <Modal
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title="Update the job"
+      >
+        <form
+          onSubmit={form.onSubmit((values) => handleSubmit(values, viewedJob))}
+        >
+          <Select
+            label="Change job status"
+            placeholder="Select a status"
+            value={viewedJob.status}
+            data={[
+              { value: "scheduled", label: "scheduled" },
+              { value: "active", label: "active" },
+              { value: "invoicing", label: "invoicing" },
+              { value: "priced", label: "priced" },
+              { value: "completed", label: "completed" },
+            ]}
+            {...form.getInputProps("status")}
+            // className={classes.input}
+          />{" "}
+          <Button
+            radius="xl"
+            size="md"
+            mt="1rem"
+            type="submit"
+            // className={classes.control}
+          >
+            Update job
+          </Button>
+        </form>
+      </Modal>
+    </Container>
+  );
 };
