@@ -7,7 +7,6 @@ import {
     Select,
     Group,
     Box,
-    Text,
 } from "@mantine/core";
 import { randomId } from "@mantine/hooks";
 import { Trash } from "tabler-icons-react";

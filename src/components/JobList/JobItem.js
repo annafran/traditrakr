@@ -70,13 +70,13 @@ export const JobItem = ({ item }) => {
                 >
                     View
                 </Button>
-                <Button
+                {/* <Button
                     color="yellow"
                     size="xs"
                     onClick={() => navigate(`/jobs/edit/${item.jobId}`)}
                 >
                     Edit
-                </Button>
+                </Button> */}
                 <Button color="red" size="xs" onClick={deleteItem}>
                     Delete
                 </Button>
