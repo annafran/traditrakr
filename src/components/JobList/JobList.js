@@ -1,4 +1,4 @@
-import { sortedJobListState } from "../../state/atoms";
+import { filteredJobListState } from "../../state/atoms";
 import { useRecoilValue } from "recoil";
 import { useEffect } from "react";
 import { Container } from "@mantine/core";
@@ -12,7 +12,7 @@ export const JobList = ({ setActive }) => {
     setActive("/");
   }, [setActive]);
 
-  const jobList = useRecoilValue(sortedJobListState);
+  const jobList = useRecoilValue(filteredJobListState);
   return (
     <Container mt="2rem">
       <Group position="right">

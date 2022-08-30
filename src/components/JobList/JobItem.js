@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecoilState } from "recoil";
-import { filteredJobListState } from "../../state/atoms";
+import { jobListState } from "../../state/atoms";
 import {
   Box,
   Group,
@@ -41,7 +41,7 @@ const useStyles = createStyles(() => ({
 export const JobItem = ({ item }) => {
   const { classes } = useStyles();
   const navigate = useNavigate();
-  const [jobList, setJobList] = useRecoilState(filteredJobListState);
+  const [jobList, setJobList] = useRecoilState(jobListState);
   const index = jobList.findIndex((listItem) => listItem === item);
   const deleteItem = () => {
     const newList = removeItemAtIndex(jobList, index);

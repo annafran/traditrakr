@@ -66,7 +66,7 @@ export const JobForm = ({ job, onJobSubmit, buttonText }) => {
             {...form.getInputProps("status")}
             className={classes.input}
           />
-          <NumberInput
+          <TextInput
             required
             label="Client phone number"
             {...form.getInputProps("clientPhoneNumber")}

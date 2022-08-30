@@ -7,7 +7,7 @@ export const jobListState = atom({
 
 export const jobListFilterState = atom({
   key: "JobListFilter",
-  default: "Show All",
+  default: { status: "Show All", sort: "Most Recent" },
 });
 
 export const jobListSortState = atom({
@@ -15,49 +15,72 @@ export const jobListSortState = atom({
   default: "Most Recent",
 });
 
+const filterItems = (filter, jobList) => {
+  switch (filter) {
+    case "Show Completed":
+      return jobList.filter((item) => item.status === "completed");
+    case "Show Uncompleted":
+      return jobList.filter((item) => item.status !== "completed");
+    case "Show Invoicing":
+      return jobList.filter((item) => item.status === "invoicing");
+    case "Show Priced":
+      return jobList.filter((item) => item.status === "priced");
+    case "Show Scheduled":
+      return jobList.filter((item) => item.status === "scheduled");
+    case "Show Active":
+      return jobList.filter((item) => item.status === "active");
+    default:
+      return jobList;
+  }
+};
+
+const sortItems = (sort, jobList) => {
+  switch (sort) {
+    case "Most Recent":
+      return jobList.sort(
+        (itema, itemb) => itema.createdDate - itemb.createdDate
+      );
+    case "Least Recent":
+      return jobList.sort(
+        (itema, itemb) => itemb.createdDate - itema.createdDate
+      );
+    default:
+      return jobList;
+  }
+};
+
 export const filteredJobListState = selector({
   key: "filteredJobList",
   get: ({ get }) => {
-    const filter = get(jobListFilterState);
+    const { status, sort } = get(jobListFilterState);
     const jobList = get(jobListState);
-    switch (filter) {
-      case "Show Completed":
-        return jobList.filter((item) => item.status === "completed");
-      case "Show Uncompleted":
-        return jobList.filter((item) => item.status !== "completed");
-      case "Show Invoicing":
-        return jobList.filter((item) => item.status === "invoicing");
-      case "Show Priced":
-        return jobList.filter((item) => item.status === "priced");
-      case "Show Scheduled":
-        return jobList.filter((item) => item.status === "scheduled");
-      case "Show Active":
-        return jobList.filter((item) => item.status === "active");
-      default:
-        return jobList;
-    }
+    const filterList = filterItems(status, jobList);
+    const sortList = sortItems(sort, filterList);
+    return sortList;
   },
 });
 
-export const sortedJobListState = selector({
-  key: "sortedJobList",
-  get: ({ get }) => {
-    const sort = get(jobListSortState);
-    const jobList = get(filteredJobListState);
-    switch (sort) {
-      case "Most Recent":
-        return jobList.sort(
-          (itema, itemb) => itema.createdDate - itemb.createdDate
-        );
-      case "Least Recent":
-        return jobList.sort(
-          (itema, itemb) => itemb.createdDate - itema.createdDate
-        );
-      default:
-        return jobList;
-    }
-  },
-});
+// export const sortedJobListState = selector({
+//   key: "sortedJobList",
+//   get: ({ get }) => {
+//     // const sort = get(jobListSortState);
+//     const jobList = get(filteredJobListState);
+//     console.log(jobList);
+//     return jobList;
+//     // switch (sort) {
+//     //   case "Most Recent":
+//     //     return jobList.sort(
+//     //       (itema, itemb) => itema.createdDate - itemb.createdDate
+//     //     );
+//     //   case "Least Recent":
+//     //     return jobList.sort(
+//     //       (itema, itemb) => itemb.createdDate - itema.createdDate
+//     //     );
+//     //   default:
+//     //     return jobList;
+//     // }
+//   },
+// });
 
 // { value: "Show All", label: "All jobs" },
 // { value: "Show Uncompleted", label: "Uncompleted jobs" },

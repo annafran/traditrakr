@@ -28,7 +28,7 @@ export const CreateJob = ({ setActive }) => {
         clientName: "",
         clientEmail: "",
         jobName: "",
-        clientPhoneNumber: null,
+        clientPhoneNumber: "",
         notes: "",
         status: "",
       }}

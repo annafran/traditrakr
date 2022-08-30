@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Text, Stack, Container, Button, Badge } from "@mantine/core";
-import { formatDate } from "../../utils/formatDate";
+// import { formatDate } from "../../utils/formatDate";
 
 export const ViewJob = () => {
   const { id } = useParams();
