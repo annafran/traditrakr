@@ -3,14 +3,14 @@ import { jobListFilterState } from "../../state/atoms";
 import { Select, Text, Box } from "@mantine/core";
 
 export const JobFilters = () => {
-  const [value, setValue] = useRecoilState(jobListFilterState);
+  const [{ status, sort }, setFilters] = useRecoilState(jobListFilterState);
 
   return (
     <Box mb="3rem">
       <Text>Filter by status:</Text>
       <Select
-        value={value}
-        onChange={setValue}
+        value={status}
+        onChange={(value) => setFilters({ status: value, sort })}
         data={[
           { value: "Show All", label: "All jobs" },
           { value: "Show Uncompleted", label: "Uncompleted jobs" },

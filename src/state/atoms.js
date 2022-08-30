@@ -10,10 +10,10 @@ export const jobListFilterState = atom({
   default: { status: "Show All", sort: "Most Recent" },
 });
 
-export const jobListSortState = atom({
-  key: "JobListSort",
-  default: "Most Recent",
-});
+// export const jobListSortState = atom({
+//   key: "JobListSort",
+//   default: "Most Recent",
+// });
 
 const filterItems = (filter, jobList) => {
   switch (filter) {
@@ -55,8 +55,7 @@ export const filteredJobListState = selector({
     const { status, sort } = get(jobListFilterState);
     const jobList = get(jobListState);
     const filterList = filterItems(status, jobList);
-    const sortList = sortItems(sort, filterList);
-    return sortList;
+    return sortItems(sort, filterList);
   },
 });
 

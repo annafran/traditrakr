@@ -1,16 +1,16 @@
 import { useRecoilState } from "recoil";
-import { jobListSortState } from "../../state/atoms";
+import { jobListFilterState } from "../../state/atoms";
 import { Select, Text, Box } from "@mantine/core";
 
 export const JobSort = () => {
-  const [value, setValue] = useRecoilState(jobListSortState);
+  const [{ status, sort }, setFilters] = useRecoilState(jobListFilterState);
 
   return (
     <Box mb="3rem">
       <Text>Sort by date:</Text>
       <Select
-        value={value}
-        onChange={setValue}
+        value={sort}
+        onChange={(value) => setFilters({ status, sort: value })}
         data={[
           { value: "Most Recent", label: "Most recent" },
           { value: "Least Recent", label: "Least recent" },
