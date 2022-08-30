@@ -1,7 +1,7 @@
 import {
   Button,
   NumberInput,
-  Box,
+  Container,
   TextInput,
   createStyles,
   Select,
@@ -11,18 +11,20 @@ import { useForm } from "@mantine/form";
 
 const useStyles = createStyles((theme) => ({
   control: {
-    width: "80%",
-    backgroundColor: "#345c72",
+    backgroundColor: "#D9480F",
     "&:hover": {
-      backgroundColor: "#95DCDE",
+      backgroundColor: "#F08C00",
     },
     [theme.fn.smallerThan("xs")]: {
       flex: 1,
     },
   },
+  input: {
+    paddingBottom: "1rem;",
+  },
 }));
 
-export const JobForm = ({ job, onJobSubmit }) => {
+export const JobForm = ({ job, onJobSubmit, buttonText }) => {
   const { classes } = useStyles();
 
   const form = useForm({
@@ -34,20 +36,22 @@ export const JobForm = ({ job, onJobSubmit }) => {
   });
 
   return (
-    <Box mx="auto" mt="2rem">
+    <Container mt="2rem">
       <form onSubmit={form.onSubmit(onJobSubmit)}>
         <div className="formGrid">
           <TextInput
             required
             label="Client name"
             {...form.getInputProps("clientName")}
-            placeholder="Client Name"
+            placeholder={job.clientName || "Client Name"}
+            className={classes.input}
           />
           <TextInput
             required
             label="Job name"
             {...form.getInputProps("jobName")}
             placeholder="Job Name"
+            className={classes.input}
           />
           <Select
             label="Job status"
@@ -60,37 +64,40 @@ export const JobForm = ({ job, onJobSubmit }) => {
               { value: "completed", label: "Completed" },
             ]}
             {...form.getInputProps("status")}
+            className={classes.input}
           />
           <NumberInput
             required
             label="Client phone number"
             {...form.getInputProps("clientPhoneNumber")}
             placeholder="Client Phone Number"
+            className={classes.input}
           />
           <TextInput
             required
             label="Client email"
             {...form.getInputProps("clientEmail")}
             placeholder="Client email"
+            className={classes.input}
           />
           <TextInput
             required
             label="Notes"
             {...form.getInputProps("notes")}
             placeholder="Notes"
+            className={classes.input}
           />
         </div>
-        <Box className="buttonContainer">
-          <Button
-            radius="xl"
-            size="md"
-            type="submit"
-            className={`submitButton ${classes.control}`}
-          >
-            Save
-          </Button>
-        </Box>
+        <Button
+          radius="xl"
+          size="md"
+          mt="1rem"
+          type="submit"
+          className={classes.control}
+        >
+          {buttonText}
+        </Button>
       </form>
-    </Box>
+    </Container>
   );
 };

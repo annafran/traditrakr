@@ -1,29 +1,59 @@
 import { jobListState } from "../../state/atoms";
-import { v4 as uuid } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { JobForm } from "../Common";
 import { useRecoilState } from "recoil";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Text, Group, Container } from "@mantine/core";
+
+// const replaceItemAtIndex = (arr, index, newValue) => {
+//   return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)];
+// };
 
 export const EditJob = () => {
+  const { id } = useParams();
   const [jobList, setJobList] = useRecoilState(jobListState);
-  const navigate = useNavigate();
-  const handleSubmit = (values) => {
-    setJobList([...jobList, values]);
-    navigate("/");
-  };
+  const [viewedJob, setViewedJob] = useState({});
+  //   const index = todoList.findIndex((listItem) => listItem === item);
+  //   const navigate = useNavigate();
+
+  useEffect(() => {
+    const findJob = () => {
+      const foundJob = jobList.find((obj) => obj.jobId === id);
+      setViewedJob(foundJob);
+    };
+    findJob();
+  }, [id, jobList]);
+
+  //   const handleEditJob = (values) => {
+  //     const newList = replaceItemAtIndex(jobList, index, {
+  //       ...item,
+  //       ...values,
+  //     });
+
+  //     setJobList(newList);
+  //     // navigate("/");
+  //   };
   return (
+    // <Container>
+    //   <Group>
+    //     <Text>{viewedJob.clientName}</Text>
+    //   </Group>
+    // </Container>
+
     <JobForm
-      onJobSave={handleSubmit}
+      //   onJobSave={handleEditJob}
       job={{
-        jobId: uuid(),
-        createdDate: Date.now(),
-        clientName: "",
-        clientEmail: "",
-        jobName: "",
-        clientPhoneNumber: null,
-        notes: "",
-        status: "",
+        jobId: viewedJob.jobId,
+        clientName: viewedJob.clientName,
+        clientEmail: viewedJob.clientEmail,
+        jobName: viewedJob.jobName,
+        clientPhoneNumber: viewedJob.clientPhoneNumber,
+        notes: viewedJob.notes,
+        status: viewedJob.status,
+        createdDate: viewedJob.createdDate,
       }}
+      buttonText="Save"
     />
   );
 };

@@ -6,6 +6,7 @@ import { JobList } from "./components/JobList";
 import { HeaderBar } from "./components/Common";
 import { EditJob } from "./components/EditJob";
 import { CreateJob } from "./components/CreateJob";
+import { ViewJob } from "./components/ViewJob";
 
 const links = [
   { link: "/", label: "Jobs" },
@@ -28,7 +29,8 @@ const App = () => {
             path="createjob"
             element={<CreateJob active={active} setActive={setActive} />}
           />
-          <Route path="jobs/:id" element={<EditJob />} />
+          <Route path="jobs/:id" element={<ViewJob />} />
+          <Route path="jobs/edit/:id" element={<EditJob />} />
         </Routes>
       </RecoilRoot>
     </MantineProvider>

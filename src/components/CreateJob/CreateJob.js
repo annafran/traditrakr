@@ -20,6 +20,7 @@ export const CreateJob = ({ setActive }) => {
 
   return (
     <JobForm
+      buttonText="Add job"
       onJobSubmit={handleSubmit}
       job={{
         jobId: uuid(),
