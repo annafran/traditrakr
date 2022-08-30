@@ -49,14 +49,6 @@ export const ViewJob = () => {
     </tr>
   ));
 
-  //   useEffect(() => {
-  //     const findJob = () => {
-  //       const foundJob = jobList.find((obj) => obj.jobId === id);
-  //       setspecificJob(foundJob);
-  //     };
-  //     findJob();
-  //   }, [id, jobList]);
-
   const form = useForm({
     initialValues: {
       jobId: specificJob.jobId,
