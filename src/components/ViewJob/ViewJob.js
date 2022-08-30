@@ -7,36 +7,38 @@ import { Text, Stack, Container, Button, Badge } from "@mantine/core";
 // import { formatDate } from "../../utils/formatDate";
 
 export const ViewJob = () => {
-  const { id } = useParams();
-  const jobList = useRecoilValue(jobListState);
-  const [viewedJob, setViewedJob] = useState({});
-  const navigate = useNavigate();
+    const { id } = useParams();
+    const jobList = useRecoilValue(jobListState);
+    const [viewedJob, setViewedJob] = useState({});
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    const findJob = () => {
-      const foundJob = jobList.find((obj) => obj.jobId === id);
-      setViewedJob(foundJob);
-    };
-    findJob();
-  }, [id, jobList]);
+    useEffect(() => {
+        const findJob = () => {
+            const foundJob = jobList.find((obj) => obj.jobId === id);
+            setViewedJob(foundJob);
+        };
+        findJob();
+    }, [id, jobList]);
 
-  return (
-    <Container mt="2rem">
-      <Badge>{viewedJob.status}</Badge>
-      <Stack>
-        <Text>{viewedJob.jobName}</Text>
-        <Text>{viewedJob.clientName}</Text>
-        <Text>{viewedJob.clientPhoneNumber}</Text>
-        <Text>{viewedJob.clientEmail}</Text>
-        <Text>{viewedJob.notes}</Text>
-        {/* <Text>{formatDate(viewedJob.createdDate)}</Text> */}
-      </Stack>
-      <Button
-        color="orange.5"
-        onClick={() => navigate(`/jobs/edit/${viewedJob.jobId}`)}
-      >
-        Edit
-      </Button>
-    </Container>
-  );
+    return (
+        <Container mt="2rem">
+            <Badge>{viewedJob.status}</Badge>
+            <Stack>
+                <Text>{viewedJob.jobName}</Text>
+                <Text>{viewedJob.clientName}</Text>
+                <Text>{viewedJob.clientPhoneNumber}</Text>
+                <Text>{viewedJob.clientEmail}</Text>
+                {viewedJob.notes.map((note) => {
+                    return <Text>{note}</Text>;
+                })}
+                {/* <Text>{formatDate(viewedJob.createdDate)}</Text> */}
+            </Stack>
+            <Button
+                color="orange"
+                onClick={() => navigate(`/jobs/edit/${viewedJob.jobId}`)}
+            >
+                Edit
+            </Button>
+        </Container>
+    );
 };
