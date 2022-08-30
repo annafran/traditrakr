@@ -10,6 +10,11 @@ export const jobListFilterState = atom({
   default: "Show All",
 });
 
+export const jobListSortState = atom({
+  key: "JobListSort",
+  default: "Most Recent",
+});
+
 export const filteredJobListState = selector({
   key: "filteredJobList",
   get: ({ get }) => {
@@ -19,30 +24,66 @@ export const filteredJobListState = selector({
       case "Show Completed":
         return jobList.filter((item) => item.status === "completed");
       case "Show Uncompleted":
-        return jobList.filter((item) => !item.status !== "completed");
+        return jobList.filter((item) => item.status !== "completed");
+      case "Show Invoicing":
+        return jobList.filter((item) => item.status === "invoicing");
+      case "Show Priced":
+        return jobList.filter((item) => item.status === "priced");
+      case "Show Scheduled":
+        return jobList.filter((item) => item.status === "scheduled");
+      case "Show Active":
+        return jobList.filter((item) => item.status === "active");
       default:
         return jobList;
     }
   },
 });
 
-export const jobListStatsState = selector({
-  key: "jobListStats",
+export const sortedJobListState = selector({
+  key: "sortedJobList",
   get: ({ get }) => {
-    const jobList = get(jobListState);
-    const totalNum = jobList.length;
-    const totalCompletedNum = jobList.filter(
-      (item) => item.status === "completed"
-    ).length;
-    const totalUncompletedNum = totalNum - totalCompletedNum;
-    const percentCompleted =
-      totalNum === 0 ? 0 : (totalCompletedNum / totalNum) * 100;
-
-    return {
-      totalNum,
-      totalCompletedNum,
-      totalUncompletedNum,
-      percentCompleted,
-    };
+    const sort = get(jobListSortState);
+    const jobList = get(filteredJobListState);
+    switch (sort) {
+      case "Most Recent":
+        return jobList.sort(
+          (itema, itemb) => itema.createdDate - itemb.createdDate
+        );
+      case "Least Recent":
+        return jobList.sort(
+          (itema, itemb) => itemb.createdDate - itema.createdDate
+        );
+      default:
+        return jobList;
+    }
   },
 });
+
+// { value: "Show All", label: "All jobs" },
+// { value: "Show Uncompleted", label: "Uncompleted jobs" },
+// { value: "Show Completed", label: "Completed jobs" },
+// { value: "Show Invoicing", label: "Invoiced jobs" },
+// { value: "Show Priced", label: "Priced jobs" },
+// { value: "Show Scheduled", label: "Scheduled jobs" },
+// { value: "Show Active", label: "Active jobs" },
+
+// export const jobListStatsState = selector({
+//   key: "jobListStats",
+//   get: ({ get }) => {
+//     const jobList = get(jobListState);
+//     const totalNum = jobList.length;
+//     const totalCompletedNum = jobList.filter(
+//       (item) => item.status === "completed"
+//     ).length;
+//     const totalUncompletedNum = totalNum - totalCompletedNum;
+//     const percentCompleted =
+//       totalNum === 0 ? 0 : (totalCompletedNum / totalNum) * 100;
+
+//     return {
+//       totalNum,
+//       totalCompletedNum,
+//       totalUncompletedNum,
+//       percentCompleted,
+//     };
+//   },
+// });

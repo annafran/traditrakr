@@ -22,6 +22,7 @@ export const ViewJob = () => {
 
   return (
     <Container mt="2rem">
+      <Badge>{viewedJob.status}</Badge>
       <Stack>
         <Text>{viewedJob.jobName}</Text>
         <Text>{viewedJob.clientName}</Text>
@@ -30,7 +31,6 @@ export const ViewJob = () => {
         <Text>{viewedJob.notes}</Text>
         {/* <Text>{formatDate(viewedJob.createdDate)}</Text> */}
       </Stack>
-      <Badge>{viewedJob.status}</Badge>
       <Button
         color="orange.5"
         onClick={() => navigate(`/jobs/edit/${viewedJob.jobId}`)}

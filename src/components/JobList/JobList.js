@@ -1,17 +1,26 @@
-import { jobListState } from "../../state/atoms";
+import { sortedJobListState } from "../../state/atoms";
 import { useRecoilValue } from "recoil";
-import JobItem from "./JobItem";
 import { useEffect } from "react";
 import { Container } from "@mantine/core";
+import { JobFilters } from "./JobFilters";
+import { JobItem } from "./JobItem";
+import { JobSort } from "./JobSort";
+import { Text, Group } from "@mantine/core";
 
 export const JobList = ({ setActive }) => {
   useEffect(() => {
     setActive("/");
   }, [setActive]);
 
-  const jobList = useRecoilValue(jobListState);
+  const jobList = useRecoilValue(sortedJobListState);
   return (
     <Container mt="2rem">
+      <Group position="right">
+        <JobSort />
+        <JobFilters />
+      </Group>
+
+      {jobList.length === 0 && <Text>No jobs</Text>}
       {jobList.map((jobItem) => (
         <JobItem key={jobItem.jobId} item={jobItem} />
       ))}

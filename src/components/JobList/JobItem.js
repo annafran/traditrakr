@@ -1,8 +1,8 @@
 import React from "react";
 import { useRecoilState } from "recoil";
-import { jobListState } from "../../state/atoms";
+import { filteredJobListState } from "../../state/atoms";
 import {
-  Text,
+  Box,
   Group,
   Button,
   Badge,
@@ -11,31 +11,37 @@ import {
 } from "@mantine/core";
 
 import { useNavigate } from "react-router-dom";
-import { formatDate } from "../../utils/formatDate";
+// import { formatDate } from "../../utils/formatDate";
 
 const removeItemAtIndex = (arr, index) => {
   return [...arr.slice(0, index), ...arr.slice(index + 1)];
 };
 
 const useStyles = createStyles(() => ({
-  container: {
-    borderBottom: "2px",
-  },
-  jobDate: {
-    flexGrow: "1",
+  clientName: {
+    width: "7rem",
+    fontWeight: "bold",
+    padding: "5px",
+    fontSize: "0.8rem",
   },
   jobName: {
     width: "7rem",
+    padding: "5px",
+    fontSize: "0.8rem",
+    flexGrow: "1",
   },
-  clientName: {
-    width: "7rem",
-  },
+  // jobDate: {
+  //   fontStyle: "italic",
+  //   fontSize: "0.5rem",
+  //   padding: "5px",
+  //   flexGrow: "1",
+  // },
 }));
 
-const JobItem = ({ item }) => {
+export const JobItem = ({ item }) => {
   const { classes } = useStyles();
   const navigate = useNavigate();
-  const [jobList, setJobList] = useRecoilState(jobListState);
+  const [jobList, setJobList] = useRecoilState(filteredJobListState);
   const index = jobList.findIndex((listItem) => listItem === item);
   const deleteItem = () => {
     const newList = removeItemAtIndex(jobList, index);
@@ -45,9 +51,10 @@ const JobItem = ({ item }) => {
   return (
     <>
       <Group className={classes.container} noWrap>
-        <Text className={classes.clientName}>{item.clientName}</Text>
-        <Text className={classes.jobName}>{item.jobName}</Text>
-        <Text className={classes.jobDate}>{formatDate(item.createdDate)}</Text>
+        <Box className={classes.clientName}>{item.clientName}</Box>
+        <Box className={classes.jobName}>{item.jobName}</Box>
+        {/* <Box className={classes.jobDate}>{formatDate(item.createdDate)}</Box> */}
+
         <Badge
           size="md"
           variant="filled"
@@ -58,17 +65,19 @@ const JobItem = ({ item }) => {
 
         <Button
           color="orange.5"
+          size="xs"
           onClick={() => navigate(`/jobs/${item.jobId}`)}
         >
           View
         </Button>
         <Button
           color="yellow"
+          size="xs"
           onClick={() => navigate(`/jobs/edit/${item.jobId}`)}
         >
           Edit
         </Button>
-        <Button color="red.9" onClick={deleteItem}>
+        <Button color="red.9" size="xs" onClick={deleteItem}>
           Delete
         </Button>
       </Group>
@@ -76,5 +85,3 @@ const JobItem = ({ item }) => {
     </>
   );
 };
-
-export default JobItem;
