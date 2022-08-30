@@ -44,7 +44,6 @@ export const JobForm = ({ job, onJobSubmit, buttonText }) => {
             <TextInput
                 placeholder="Notes"
                 label="Notes"
-                required
                 sx={{ flex: 1 }}
                 {...form.getListInputProps("notes", index, "note")}
             />
@@ -103,15 +102,8 @@ export const JobForm = ({ job, onJobSubmit, buttonText }) => {
                         placeholder="Client email"
                         className={classes.input}
                     />
-                    {/* <TextInput
-                        required
-                        label="Notes"
-                        {...form.getInputProps("notes")}
-                        placeholder="Notes"
-                        className={classes.input}
-                    /> */}
                     <Box sx={{ maxWidth: "100%" }}>
-                        {fields.length > 0 ? (
+                        {/* {fields.length > 0 ? (
                             <Group mb="xs">
                                 <Text weight={700} size="sm" sx={{ flex: 1 }}>
                                     Notes
@@ -121,7 +113,7 @@ export const JobForm = ({ job, onJobSubmit, buttonText }) => {
                             <Text color="dimmed">
                                 You must add at least one note
                             </Text>
-                        )}
+                        )} */}
                         {fields}
                         <Group position="left" mt="md">
                             <Button
