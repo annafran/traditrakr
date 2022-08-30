@@ -9,7 +9,7 @@ import {
   Transition,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import TraditrakrLogo from "./TraditrakrLogo";
+import { TraditrakrLogo } from "./TraditrakrLogo";
 import { useNavigate } from "react-router-dom";
 
 const HEADER_HEIGHT = "10vh";
@@ -83,11 +83,10 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const HeaderBar = ({ active, setActive }) => {
+export const HeaderBar = ({ active, setActive }) => {
   const navigate = useNavigate();
   const links = [
-    { link: "/", label: "Home" },
-    { link: "/jobs", label: "Jobs" },
+    { link: "/", label: "Jobs" },
     { link: "/createjob", label: "Create a job" },
   ];
 
@@ -139,5 +138,3 @@ const HeaderBar = ({ active, setActive }) => {
     </Header>
   );
 };
-
-export default HeaderBar;

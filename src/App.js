@@ -2,15 +2,13 @@ import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { MantineProvider } from "@mantine/core";
-import JobsPage from "./components/JobsPage";
-import HeaderBar from "./components/HeaderBar";
-import Job from "./components/Job";
-import JobForm from "./components/JobForm";
-import Home from "./components/Home";
+import { JobList } from "./components/JobList";
+import { HeaderBar } from "./components/Common";
+import { EditJob } from "./components/EditJob";
+import { CreateJob } from "./components/CreateJob";
 
 const links = [
-  { link: "/", label: "Home" },
-  { link: "/jobs", label: "Jobs" },
+  { link: "/", label: "Jobs" },
   { link: "/createjob", label: "Create a job" },
 ];
 
@@ -24,17 +22,13 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={<Home active={active} setActive={setActive} />}
-          />
-          <Route
-            path="jobs"
-            element={<JobsPage active={active} setActive={setActive} />}
+            element={<JobList active={active} setActive={setActive} />}
           />
           <Route
             path="createjob"
-            element={<JobForm active={active} setActive={setActive} />}
+            element={<CreateJob active={active} setActive={setActive} />}
           />
-          <Route path="jobs/:id" element={<Job />} />
+          <Route path="jobs/:id" element={<EditJob />} />
         </Routes>
       </RecoilRoot>
     </MantineProvider>

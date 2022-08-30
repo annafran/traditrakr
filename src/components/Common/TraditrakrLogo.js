@@ -1,6 +1,6 @@
 import { Image, Grid, Text } from "@mantine/core";
 
-const TraditrakrLogo = () => {
+export const TraditrakrLogo = () => {
   return (
     <div style={{ width: 300, marginLeft: 0, marginRight: "auto" }}>
       <Grid align="center">
@@ -14,5 +14,3 @@ const TraditrakrLogo = () => {
     </div>
   );
 };
-
-export default TraditrakrLogo;
