@@ -17,7 +17,7 @@ import {
 import { Trash } from "tabler-icons-react";
 import { useForm, formList } from "@mantine/form";
 import { randomId } from "@mantine/hooks";
-// import { formatDate } from "../../utils/formatDate";
+import { formatDate } from "../../utils/formatDate";
 
 const replaceJobAtIndex = (arr, index, newValue) => {
   return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)];
@@ -28,6 +28,7 @@ export const ViewJob = () => {
   const [jobList, setJobList] = useRecoilState(jobListState);
   const [opened, setOpened] = useState(false);
   const specificJob = useRecoilValue(jobIdQuery(id));
+  console.log(jobList);
 
   const tableItems = [
     { title: "Job ID", information: specificJob.jobId },
@@ -35,7 +36,7 @@ export const ViewJob = () => {
     { title: "Client Name", information: specificJob.clientName },
     { title: "Client Mobile", information: specificJob.clientPhoneNumber },
     { title: "Client Email", information: specificJob.clientEmail },
-    // { title: "Created Date", information: formatDate(specificJob.createdDate) },
+    { title: "Created Date", information: formatDate(specificJob.createdDate) },
     // specificJob.notes.map((obj) => {
     //   return { title: "Notes", information: obj.note };
     // }),
