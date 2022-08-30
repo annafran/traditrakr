@@ -57,11 +57,11 @@ export const JobForm = ({ job, onJobSubmit, buttonText }) => {
             label="Job status"
             placeholder="Select a status"
             data={[
-              { value: "scheduled", label: "Scheduled" },
-              { value: "active", label: "Active" },
-              { value: "invoicing", label: "Invoicing" },
-              { value: "priced", label: "Priced" },
-              { value: "completed", label: "Completed" },
+              { value: "scheduled", label: "scheduled" },
+              { value: "active", label: "active" },
+              { value: "invoicing", label: "invoicing" },
+              { value: "priced", label: "priced" },
+              { value: "completed", label: "completed" },
             ]}
             {...form.getInputProps("status")}
             className={classes.input}

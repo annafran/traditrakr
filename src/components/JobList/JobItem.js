@@ -5,10 +5,11 @@ import {
   Text,
   Group,
   Button,
-  Container,
   Badge,
   createStyles,
+  Divider,
 } from "@mantine/core";
+
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../utils/formatDate";
 
@@ -16,7 +17,10 @@ const removeItemAtIndex = (arr, index) => {
   return [...arr.slice(0, index), ...arr.slice(index + 1)];
 };
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
+  container: {
+    borderBottom: "2px",
+  },
   jobDate: {
     flexGrow: "1",
   },
@@ -39,12 +43,19 @@ const JobItem = ({ item }) => {
   };
 
   return (
-    <Container mt="2rem">
-      <Group noWrap>
+    <>
+      <Group className={classes.container} noWrap>
         <Text className={classes.clientName}>{item.clientName}</Text>
         <Text className={classes.jobName}>{item.jobName}</Text>
         <Text className={classes.jobDate}>{formatDate(item.createdDate)}</Text>
-        <Badge color="red">{item.status}</Badge>
+        <Badge
+          size="md"
+          variant="filled"
+          color={item.status === "completed" ? "red" : "gray"}
+        >
+          {item.status}
+        </Badge>
+
         <Button
           color="orange.5"
           onClick={() => navigate(`/jobs/${item.jobId}`)}
@@ -61,7 +72,8 @@ const JobItem = ({ item }) => {
           Delete
         </Button>
       </Group>
-    </Container>
+      <Divider my="sm" />
+    </>
   );
 };
 
