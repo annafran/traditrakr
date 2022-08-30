@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# TradiTrakr - The essential app for tradies
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This app allows tradies to view and update their jobs.
+Jobs have the following information associated with them:
+✓ Unique job identifier.
+✓ Status: one of "scheduled", "active", "invoicing", “priced” or “completed”.
+✓ Creation date and time.
+✓ Name and contact details of the client.
+✓ The tradie can also make notes for each job. A job can have any number of notes associated with them.
 
-## Available Scripts
+The TradiTrakr app allows tradies to:
+✓ Filter by jobs by status
+✓ Sort the jobs by date
+✓ Click on a job in the list to view the details and add/edit notes for that job
+✓ Change the status of a job
+✓ Delete a job
 
-In the project directory, you can run:
+## Screenshot of TradiTrakr Job List
 
-### `npm start`
+![Screenshot of TradiTrakr Job List](traditrakr-joblist.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Screenshot of TradiTrakr Job Form
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![Screenshot of TradiTrakr Job Form](traditrakr-jobform.png)
 
-### `npm test`
+## Screenshot of TradiTrakr Specific Job View
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Screenshot of TradiTrakr Specific Job View](traditrakr-jobview.png)
 
-### `npm run build`
+## Screenshot of TradiTrakr Update Job View
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Screenshot of TradiTrakr Update Job View](traditrakr-updatejob.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Dependencies
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This project uses the following systems:
 
-### `npm run eject`
+- [React](https://github.com/facebook/react)
+- [React Router](https://reactrouter.com/docs/en/v6)
+- [Recoil](https://recoiljs.org/)
+- [Mantine](https://mantine.dev/) - running previous version 4.2.12 to utilise formList
+- [date-fns](https://date-fns.org/)
+- [tabler-icons-react](https://tabler-icons-react.vercel.app/)
+- [UUID](https://github.com/uuidjs/uuid)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Dev dependencies
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- [Prettier](https://prettier.io/)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Local development
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Run `npm install`
+2. Run `npm start` to start the react app
 
-## Learn More
+## Citations
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Logo created on: [Canva](https://www.canva.com/)
