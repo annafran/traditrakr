@@ -16,7 +16,7 @@ export const JobList = ({ setActive }) => {
   console.log(jobList);
   return (
     <Container mt="2rem">
-      <Group position="right">
+      <Group mb="2rem" position="right">
         <JobSort />
         <JobFilters />
       </Group>

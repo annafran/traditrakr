@@ -1,11 +1,23 @@
-import { jobListState } from "../../state/atoms";
-import { useRecoilState } from "recoil";
+import { jobListState, jobIdQuery } from "../../state/atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Table } from "@mantine/core";
-import { Container, Button, Badge, Modal, Select } from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { formatDate } from "../../utils/formatDate";
+import {
+  Container,
+  Button,
+  Badge,
+  Modal,
+  Select,
+  Group,
+  TextInput,
+  ActionIcon,
+  Box,
+} from "@mantine/core";
+import { Trash } from "tabler-icons-react";
+import { useForm, formList } from "@mantine/form";
+import { randomId } from "@mantine/hooks";
+// import { formatDate } from "../../utils/formatDate";
 
 const replaceJobAtIndex = (arr, index, newValue) => {
   return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)];
@@ -14,46 +26,46 @@ const replaceJobAtIndex = (arr, index, newValue) => {
 export const ViewJob = () => {
   const { id } = useParams();
   const [jobList, setJobList] = useRecoilState(jobListState);
-  const [viewedJob, setViewedJob] = useState({});
   const [opened, setOpened] = useState(false);
+  const specificJob = useRecoilValue(jobIdQuery(id));
 
   const tableItems = [
-    { title: "Job ID", information: viewedJob.jobId },
-    { title: "Job Name", information: viewedJob.jobName },
-    { title: "Client Name", information: viewedJob.clientName },
-    { title: "Client Mobile", information: viewedJob.clientPhoneNumber },
-    { title: "Client Email", information: viewedJob.clientEmail },
-    // { title: "Created Date", information: formatDate(viewedJob.createdDate) },
-    // viewedJob.notes.map((obj) => {
+    { title: "Job ID", information: specificJob.jobId },
+    { title: "Job Name", information: specificJob.jobName },
+    { title: "Client Name", information: specificJob.clientName },
+    { title: "Client Mobile", information: specificJob.clientPhoneNumber },
+    { title: "Client Email", information: specificJob.clientEmail },
+    // { title: "Created Date", information: formatDate(specificJob.createdDate) },
+    // specificJob.notes.map((obj) => {
     //   return { title: "Notes", information: obj.note };
     // }),
   ];
 
   const rows = tableItems.map((item) => (
-    <tr key={item.name}>
+    <tr key={item.title}>
       <td>{item.title}</td>
       <td>{item.information}</td>
     </tr>
   ));
 
-  useEffect(() => {
-    const findJob = () => {
-      const foundJob = jobList.find((obj) => obj.jobId === id);
-      setViewedJob(foundJob);
-    };
-    findJob();
-  }, [id, jobList]);
+  //   useEffect(() => {
+  //     const findJob = () => {
+  //       const foundJob = jobList.find((obj) => obj.jobId === id);
+  //       setspecificJob(foundJob);
+  //     };
+  //     findJob();
+  //   }, [id, jobList]);
 
   const form = useForm({
     initialValues: {
-      jobId: viewedJob.jobId,
-      createdDate: viewedJob.createdDate,
-      clientName: viewedJob.clientName,
-      clientEmail: viewedJob.clientEmail,
-      jobName: viewedJob.jobName,
-      clientPhoneNumber: viewedJob.clientPhoneNumber,
-      notes: viewedJob.notes,
-      status: viewedJob.status,
+      jobId: specificJob.jobId,
+      createdDate: specificJob.createdDate,
+      clientName: specificJob.clientName,
+      clientEmail: specificJob.clientEmail,
+      jobName: specificJob.jobName,
+      clientPhoneNumber: specificJob.clientPhoneNumber,
+      notes: formList([{ note: "", key: randomId() }]),
+      status: specificJob.status,
     },
   });
 
@@ -68,13 +80,31 @@ export const ViewJob = () => {
     setOpened(false);
   };
 
+  const fields = form.values.notes.map((item, index) => (
+    <Group key={item.key} mt="xs">
+      <TextInput
+        placeholder="Write your note"
+        label="Add extra notes"
+        sx={{ flex: 1 }}
+        {...form.getListInputProps("notes", index, "note")}
+      />
+      <ActionIcon
+        color="red"
+        variant="hover"
+        onClick={() => form.removeListItem("notes", index)}
+      >
+        <Trash size={23} />
+      </ActionIcon>
+    </Group>
+  ));
+
   return (
     <Container mt="2rem" size="xs">
       <Badge
         variant="filled"
-        color={viewedJob.status === "completed" ? "red" : "gray"}
+        color={specificJob.status === "completed" ? "red" : "gray"}
       >
-        {viewedJob.status}
+        {specificJob.status}
       </Badge>
       <Table mt="1rem" mb="1rem">
         <thead>
@@ -91,15 +121,17 @@ export const ViewJob = () => {
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
-        title="Update the job"
+        title={`Update job# ${specificJob.jobId}`}
       >
         <form
-          onSubmit={form.onSubmit((values) => handleSubmit(values, viewedJob))}
+          onSubmit={form.onSubmit((values) =>
+            handleSubmit(values, specificJob)
+          )}
         >
           <Select
             label="Change job status"
             placeholder="Select a status"
-            value={viewedJob.status}
+            value={specificJob.status}
             data={[
               { value: "scheduled", label: "scheduled" },
               { value: "active", label: "active" },
@@ -108,15 +140,25 @@ export const ViewJob = () => {
               { value: "completed", label: "completed" },
             ]}
             {...form.getInputProps("status")}
-            // className={classes.input}
-          />{" "}
-          <Button
-            radius="xl"
-            size="md"
-            mt="1rem"
-            type="submit"
-            // className={classes.control}
-          >
+          />
+          <Box sx={{ maxWidth: "100%" }}>
+            {fields}
+            <Group position="left" mt="md">
+              <Button
+                color="orange"
+                size="xs"
+                onClick={() =>
+                  form.addListItem("notes", {
+                    note: "",
+                    key: randomId(),
+                  })
+                }
+              >
+                Add note
+              </Button>
+            </Group>
+          </Box>
+          <Button radius="xl" size="sm" mt="1rem" color="red" type="submit">
             Update job
           </Button>
         </form>

@@ -106,17 +106,6 @@ export const JobForm = ({ job, onJobSubmit, buttonText }) => {
             className={classes.input}
           />
           <Box sx={{ maxWidth: "100%" }}>
-            {/* {fields.length > 0 ? (
-                            <Group mb="xs">
-                                <Text weight={700} size="sm" sx={{ flex: 1 }}>
-                                    Notes
-                                </Text>
-                            </Group>
-                        ) : (
-                            <Text color="dimmed">
-                                You must add at least one note
-                            </Text>
-                        )} */}
             {fields}
             <Group position="left" mt="md">
               <Button

@@ -1,4 +1,4 @@
-import { atom, selector } from "recoil";
+import { atom, selector, selectorFamily } from "recoil";
 
 export const jobListState = atom({
   key: "JobList",
@@ -52,6 +52,17 @@ export const filteredJobListState = selector({
     const filterList = filterItems(status, jobList);
     return sortItems(sort, filterList.slice());
   },
+});
+
+export const jobIdQuery = selectorFamily({
+  key: "JobID",
+  get:
+    (userId) =>
+    ({ get }) => {
+      const jobList = get(jobListState);
+      const foundJob = jobList.find((obj) => obj.jobId === userId);
+      return foundJob;
+    },
 });
 
 // export const jobListStatsState = selector({

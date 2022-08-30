@@ -6,7 +6,7 @@ export const JobFilters = () => {
   const [{ status, sort }, setFilters] = useRecoilState(jobListFilterState);
 
   return (
-    <Box mb="3rem">
+    <Box>
       <Text>Filter by status:</Text>
       <Select
         value={status}
