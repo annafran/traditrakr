@@ -8,7 +8,9 @@ export const TraditrakrLogo = () => {
           <Image src="traditrakrLogo.svg" alt="logo" />
         </Grid.Col>
         <Grid.Col span={8}>
-          <Text>TradiTrakr</Text>
+          <Text size="xl" weight="bold">
+            TradiTrakr
+          </Text>
         </Grid.Col>
       </Grid>
     </div>
