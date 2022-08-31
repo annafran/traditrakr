@@ -12,6 +12,7 @@ const useStyles = createStyles((theme) => ({
   input: {
     [theme.fn.smallerThan("xs")]: {
       width: "8rem",
+      fontSize: "0.7rem",
     },
   },
 }));
@@ -24,7 +25,7 @@ export const JobFilters = () => {
     <Box>
       <Text className={classes.label}>Filter by status:</Text>
       <Select
-        className={classes.input}
+        classNames={{ input: classes.input }}
         value={status}
         onChange={(value) => setFilters({ status: value, sort })}
         data={[

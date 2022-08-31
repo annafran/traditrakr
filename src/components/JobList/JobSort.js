@@ -12,6 +12,7 @@ const useStyles = createStyles((theme) => ({
   input: {
     [theme.fn.smallerThan("xs")]: {
       width: "8rem",
+      fontSize: "0.7rem",
     },
   },
 }));
@@ -24,7 +25,7 @@ export const JobSort = () => {
     <Box>
       <Text className={classes.label}>Sort by date:</Text>
       <Select
-        className={classes.input}
+        classNames={{ input: classes.input }}
         value={sort}
         onChange={(value) => setFilters({ status, sort: value })}
         data={[
