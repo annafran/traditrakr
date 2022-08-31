@@ -1,8 +1,15 @@
 import { atom, selector, selectorFamily } from "recoil";
+import { recoilPersist } from "recoil-persist";
+
+const { persistAtom } = recoilPersist({
+  key: "recoil-persist",
+  storage: localStorage,
+});
 
 export const jobListState = atom({
   key: "JobList",
   default: [],
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const jobListFilterState = atom({
