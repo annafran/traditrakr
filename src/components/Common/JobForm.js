@@ -12,22 +12,13 @@ import { randomId } from "@mantine/hooks";
 import { Trash } from "tabler-icons-react";
 import { useForm } from "@mantine/form";
 
-const useStyles = createStyles((theme) => ({
-  control: {
-    backgroundColor: "#D9480F",
-    "&:hover": {
-      backgroundColor: "#F08C00",
-    },
-    [theme.fn.smallerThan("xs")]: {
-      flex: 1,
-    },
-  },
+const useStyles = createStyles(() => ({
   input: {
     paddingBottom: "1rem;",
   },
 }));
 
-export const JobForm = ({ job, onJobSubmit, buttonText }) => {
+export const JobForm = ({ job, onJobSubmit }) => {
   const { classes } = useStyles();
 
   const form = useForm({
@@ -128,9 +119,10 @@ export const JobForm = ({ job, onJobSubmit, buttonText }) => {
           size="md"
           mt="1rem"
           type="submit"
+          color="red"
           className={classes.control}
         >
-          {buttonText}
+          Add Job
         </Button>
       </form>
     </Container>
