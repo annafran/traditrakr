@@ -38,6 +38,30 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+const handleColor = (status) => {
+  let color;
+  switch (status) {
+    case "completed":
+      color = "red";
+      break;
+    case "scheduled":
+      color = "gray";
+      break;
+    case "invoicing":
+      color = "blue";
+      break;
+    case "priced":
+      color = "yellow";
+      break;
+    case "active":
+      color = "green";
+      break;
+    default:
+      color = "gray";
+  }
+  return color;
+};
+
 export const JobItem = ({ item }) => {
   const { classes } = useStyles();
   const navigate = useNavigate();
@@ -58,7 +82,8 @@ export const JobItem = ({ item }) => {
             size="md"
             className={classes.badge}
             variant="filled"
-            color={item.status === "completed" ? "red" : "gray"}
+            color={handleColor(item.status)}
+            // color={item.status === "completed" ? "red" : "gray"}
           >
             {item.status}
           </Badge>
@@ -68,7 +93,8 @@ export const JobItem = ({ item }) => {
             size="xs"
             className={classes.badge}
             variant="filled"
-            color={item.status === "completed" ? "red" : "gray"}
+            color={handleColor(item.status)}
+            // color={item.status === "completed" ? "red" : "gray"}
           >
             {item.status}
           </Badge>

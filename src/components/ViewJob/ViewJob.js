@@ -2,7 +2,6 @@ import { jobListState, jobIdQuery } from "../../state/atoms";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { Table } from "@mantine/core";
 import {
   Container,
   Button,
@@ -13,11 +12,19 @@ import {
   TextInput,
   ActionIcon,
   Box,
+  Table,
+  createStyles,
 } from "@mantine/core";
 import { Trash } from "tabler-icons-react";
 import { useForm, formList } from "@mantine/form";
 import { randomId } from "@mantine/hooks";
 import { formatDate } from "../../utils/formatDate";
+
+const useStyles = createStyles(() => ({
+  tableTitle: {
+    fontWeight: "bold",
+  },
+}));
 
 const replaceJobAtIndex = (arr, index, newValue) => {
   return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)];
@@ -28,6 +35,7 @@ export const ViewJob = () => {
   const [jobList, setJobList] = useRecoilState(jobListState);
   const [opened, setOpened] = useState(false);
   const specificJob = useRecoilValue(jobIdQuery(id));
+  const { classes } = useStyles();
 
   const tableItems = [
     { title: "Job ID", information: specificJob.jobId },
@@ -43,7 +51,7 @@ export const ViewJob = () => {
 
   const rows = tableItems.map((item, index) => (
     <tr key={`${index}-${item.title}`}>
-      <td>{item.title}</td>
+      <td className={classes.tableTitle}>{item.title}</td>
       <td>{item.information}</td>
     </tr>
   ));
@@ -89,12 +97,33 @@ export const ViewJob = () => {
     </Group>
   ));
 
+  const handleColor = (status) => {
+    let color;
+    switch (status) {
+      case "completed":
+        color = "red";
+        break;
+      case "scheduled":
+        color = "gray";
+        break;
+      case "invoicing":
+        color = "blue";
+        break;
+      case "priced":
+        color = "yellow";
+        break;
+      case "active":
+        color = "green";
+        break;
+      default:
+        color = "gray";
+    }
+    return color;
+  };
+
   return (
     <Container mt="2rem" size="xs">
-      <Badge
-        variant="filled"
-        color={specificJob.status === "completed" ? "red" : "gray"}
-      >
+      <Badge variant="filled" color={handleColor(specificJob.status)}>
         {specificJob.status}
       </Badge>
       <Table mt="1rem" mb="1rem">
