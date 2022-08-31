@@ -41,8 +41,8 @@ export const ViewJob = () => {
     }),
   ];
 
-  const rows = tableItems.map((item) => (
-    <tr key={item.title}>
+  const rows = tableItems.map((item, index) => (
+    <tr key={`${index}-${item.title}`}>
       <td>{item.title}</td>
       <td>{item.information}</td>
     </tr>
@@ -56,7 +56,7 @@ export const ViewJob = () => {
       clientEmail: specificJob.clientEmail,
       jobName: specificJob.jobName,
       clientPhoneNumber: specificJob.clientPhoneNumber,
-      notes: formList(specificJob.notes),
+      notes: formList([...specificJob.notes]),
       status: specificJob.status,
     },
   });
