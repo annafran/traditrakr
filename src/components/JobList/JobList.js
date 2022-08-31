@@ -13,7 +13,6 @@ export const JobList = ({ setActive }) => {
   }, [setActive]);
 
   const jobList = useRecoilValue(filteredJobListState);
-  console.log(jobList);
   return (
     <Container mt="2rem">
       <Group mb="2rem" position="right">
