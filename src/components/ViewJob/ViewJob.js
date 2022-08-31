@@ -28,7 +28,6 @@ export const ViewJob = () => {
   const [jobList, setJobList] = useRecoilState(jobListState);
   const [opened, setOpened] = useState(false);
   const specificJob = useRecoilValue(jobIdQuery(id));
-  console.log(jobList);
 
   const tableItems = [
     { title: "Job ID", information: specificJob.jobId },
