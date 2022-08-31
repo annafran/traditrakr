@@ -37,9 +37,9 @@ export const ViewJob = () => {
     { title: "Client Mobile", information: specificJob.clientPhoneNumber },
     { title: "Client Email", information: specificJob.clientEmail },
     { title: "Created Date", information: formatDate(specificJob.createdDate) },
-    // specificJob.notes.map((obj) => {
-    //   return { title: "Notes", information: obj.note };
-    // }),
+    ...specificJob.notes.map((obj) => {
+      return { title: "Notes", information: obj.note };
+    }),
   ];
 
   const rows = tableItems.map((item) => (
