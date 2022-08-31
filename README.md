@@ -1,6 +1,6 @@
 # TradiTrakr - The essential app for tradies
 
-This app allows tradies to view and update their jobs.
+This app allows tradies to create, view and update their jobs.
 
 Jobs have the following information associated with them:
 
