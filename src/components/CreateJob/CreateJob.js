@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { formList } from "@mantine/form";
 import { jobListState } from "../../state/atoms";
 import { useNavigate } from "react-router-dom";
-import { JobForm } from "../Common/JobForm";
+import { JobForm } from "./JobForm";
 import { useEffect } from "react";
 import { randomId } from "@mantine/hooks";
 
