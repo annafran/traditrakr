@@ -1,6 +1,7 @@
 # TradiTrakr - The essential app for tradies
 
 This app allows tradies to view and update their jobs.
+
 Jobs have the following information associated with them:
 
 - Unique job identifier.
@@ -11,11 +12,13 @@ Jobs have the following information associated with them:
 
 The TradiTrakr app allows tradies to:
 
-- Filter by jobs by status
-- Sort the jobs by date
-- Click on a job in the list to view the details and add/edit notes for that job
-- Change the status of a job
-- Delete a job
+- Filter by jobs by status.
+- Sort the jobs by date.
+- Click on a job in the list to view the details and add/edit notes for that job.
+- Change the status of a job.
+- Delete a job.
+
+Jobs are saved in localstorage using Recoil Persist.
 
 ## Screenshot of TradiTrakr Job List
 
@@ -54,6 +57,10 @@ This project uses the following systems:
 
 1. Run `npm install`
 2. Run `npm start` to start the react app
+
+## Deployed site
+
+[TradiTrakr](https://traditrakr.netlify.app/)
 
 ## Citations
 
