@@ -29,7 +29,6 @@ const useStyles = createStyles((theme) => ({
     },
   },
   jobName: {
-    width: "7rem",
     padding: "5px",
     fontSize: "0.9rem",
     flexGrow: "1",
@@ -57,7 +56,7 @@ export const JobItem = ({ item }) => {
         <MediaQuery smallerThan="xs" styles={{ display: "none" }}>
           <Badge
             size="md"
-            style={{ flexBasis: "max-content" }}
+            className={classes.badge}
             variant="filled"
             color={item.status === "completed" ? "red" : "gray"}
           >
@@ -67,7 +66,7 @@ export const JobItem = ({ item }) => {
         <MediaQuery largerThan="xs" styles={{ display: "none" }}>
           <Badge
             size="xs"
-            style={{ flexBasis: "max-content" }}
+            className={classes.badge}
             variant="filled"
             color={item.status === "completed" ? "red" : "gray"}
           >
