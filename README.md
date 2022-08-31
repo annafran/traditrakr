@@ -40,6 +40,7 @@ This project uses the following systems:
 - [React](https://github.com/facebook/react)
 - [React Router](https://reactrouter.com/docs/en/v6)
 - [Recoil](https://recoiljs.org/)
+- [Recoil Persist](https://github.com/polemius/recoil-persist)
 - [Mantine](https://mantine.dev/) - running previous version 4.2.12 to utilise formList
 - [date-fns](https://date-fns.org/)
 - [tabler-icons-react](https://tabler-icons-react.vercel.app/)
