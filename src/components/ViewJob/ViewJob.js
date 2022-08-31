@@ -57,7 +57,7 @@ export const ViewJob = () => {
       clientEmail: specificJob.clientEmail,
       jobName: specificJob.jobName,
       clientPhoneNumber: specificJob.clientPhoneNumber,
-      notes: formList([{ note: "", key: randomId() }]),
+      notes: formList(specificJob.notes),
       status: specificJob.status,
     },
   });
@@ -65,7 +65,6 @@ export const ViewJob = () => {
   const handleSubmit = (values, jobItem) => {
     const index = jobList.findIndex((item) => item === jobItem);
     const updatedJobList = replaceJobAtIndex(jobList, index, {
-      status: jobItem.status,
       ...values,
     });
 
