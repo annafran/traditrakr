@@ -1,5 +1,5 @@
-import { filteredJobListState } from "../../state/atoms";
-import { useRecoilValue } from "recoil";
+import { filteredJobListState, jobListState } from "../../state/atoms";
+import { useRecoilValue, useRecoilState } from "recoil";
 import { useEffect } from "react";
 import { Container } from "@mantine/core";
 import { JobFilters } from "./JobFilters";
@@ -8,21 +8,29 @@ import { JobSort } from "./JobSort";
 import { Text, Group } from "@mantine/core";
 
 export const JobList = ({ setActive }) => {
+  const [jobList, setJobList] = useRecoilState(jobListState);
+  const filteredJobList = useRecoilValue(filteredJobListState);
   useEffect(() => {
     setActive("/");
   }, [setActive]);
 
-  const jobList = useRecoilValue(filteredJobListState);
+  const deleteJob = (id) => {
+    setJobList([
+      ...jobList.filter((job) => {
+        return job.jobId !== id;
+      }),
+    ]);
+  };
+
   return (
     <Container mt="2rem">
       <Group mb="2rem" position="right">
         <JobSort />
         <JobFilters />
       </Group>
-
-      {jobList.length === 0 && <Text>No jobs</Text>}
-      {jobList.map((jobItem) => (
-        <JobItem key={jobItem.jobId} item={jobItem} />
+      {filteredJobList.length === 0 && <Text>No jobs</Text>}
+      {filteredJobList.map((jobItem) => (
+        <JobItem key={jobItem.jobId} item={jobItem} onDeleteJob={deleteJob} />
       ))}
     </Container>
   );

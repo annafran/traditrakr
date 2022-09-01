@@ -1,6 +1,5 @@
 import React from "react";
-import { useRecoilState } from "recoil";
-import { jobListState } from "../../state/atoms";
+
 import {
   Box,
   Group,
@@ -12,10 +11,6 @@ import {
 } from "@mantine/core";
 
 import { useNavigate } from "react-router-dom";
-
-const removeItemAtIndex = (arr, index) => {
-  return [...arr.slice(0, index), ...arr.slice(index + 1)];
-};
 
 const useStyles = createStyles((theme) => ({
   clientName: {
@@ -62,28 +57,23 @@ const handleColor = (status) => {
   return color;
 };
 
-export const JobItem = ({ item }) => {
+export const JobItem = ({ item, onDeleteJob }) => {
   const { classes } = useStyles();
   const navigate = useNavigate();
-  const [jobList, setJobList] = useRecoilState(jobListState);
-  const index = jobList.findIndex((listItem) => listItem === item);
-  const deleteItem = () => {
-    const newList = removeItemAtIndex(jobList, index);
-    setJobList(newList);
-  };
 
   return (
     <>
       <Group className={classes.container} noWrap>
         <Box className={classes.clientName}>{item.clientName}</Box>
-        <Box className={classes.jobName}>{item.jobName}</Box>
+        <Box data-testid="jobName" className={classes.jobName}>
+          {item.jobName}
+        </Box>
         <MediaQuery smallerThan="xs" styles={{ display: "none" }}>
           <Badge
             size="md"
             className={classes.badge}
             variant="filled"
             color={handleColor(item.status)}
-            // color={item.status === "completed" ? "red" : "gray"}
           >
             {item.status}
           </Badge>
@@ -94,7 +84,6 @@ export const JobItem = ({ item }) => {
             className={classes.badge}
             variant="filled"
             color={handleColor(item.status)}
-            // color={item.status === "completed" ? "red" : "gray"}
           >
             {item.status}
           </Badge>
@@ -119,12 +108,17 @@ export const JobItem = ({ item }) => {
           </Button>
         </MediaQuery>
         <MediaQuery smallerThan="xs" styles={{ display: "none" }}>
-          <Button color="red" size="xs" onClick={deleteItem}>
+          <Button color="red" size="xs" onClick={() => onDeleteJob(item.jobId)}>
             Delete
           </Button>
         </MediaQuery>
         <MediaQuery largerThan="xs" styles={{ display: "none" }}>
-          <Button color="red" p={5} size={12} onClick={deleteItem}>
+          <Button
+            color="red"
+            p={5}
+            size={12}
+            onClick={() => onDeleteJob(item.jobId)}
+          >
             Delete
           </Button>
         </MediaQuery>
