@@ -52,11 +52,13 @@ This project uses the following systems:
 ## Dev dependencies
 
 - [Prettier](https://prettier.io/)
+- [Testing Library](https://testing-library.com/)
 
 ## Local development
 
 1. Run `npm install`
 2. Run `npm start` to start the react app
+3. Run `npm test` to run tests
 
 ## Deployed site
 
