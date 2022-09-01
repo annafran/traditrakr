@@ -71,24 +71,3 @@ export const jobIdQuery = selectorFamily({
       return foundJob;
     },
 });
-
-// export const jobListStatsState = selector({
-//   key: "jobListStats",
-//   get: ({ get }) => {
-//     const jobList = get(jobListState);
-//     const totalNum = jobList.length;
-//     const totalCompletedNum = jobList.filter(
-//       (item) => item.status === "completed"
-//     ).length;
-//     const totalUncompletedNum = totalNum - totalCompletedNum;
-//     const percentCompleted =
-//       totalNum === 0 ? 0 : (totalCompletedNum / totalNum) * 100;
-
-//     return {
-//       totalNum,
-//       totalCompletedNum,
-//       totalUncompletedNum,
-//       percentCompleted,
-//     };
-//   },
-// });
