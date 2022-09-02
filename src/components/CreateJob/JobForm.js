@@ -70,6 +70,7 @@ export const JobForm = ({ job, onJobSubmit }) => {
           <Select
             label="Job status"
             searchable
+            required
             placeholder="Select a status"
             data={[
               { value: "scheduled", label: "scheduled" },
