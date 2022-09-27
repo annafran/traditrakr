@@ -1,10 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { JobItem } from "./JobItem";
+import { Job } from "../../models";
 
 describe("JobItem", () => {
   test("Renders a job with a job name", () => {
-    const item = {
+    const item: Job = {
       clientEmail: "sample@gmail.com",
       clientName: "Jimmy Brown",
       clientPhoneNumber: "0229796659",
@@ -19,7 +20,12 @@ describe("JobItem", () => {
     };
     render(
       <BrowserRouter>
-        <JobItem item={item} />
+        <JobItem
+          item={item}
+          onDeleteJob={function (jobId: string): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
       </BrowserRouter>
     );
     expect(screen.getByTestId("jobName")).toHaveTextContent("Fix bathroom tap");
