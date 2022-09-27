@@ -18,7 +18,7 @@ export const JobList: FunctionComponent<JobListProps> = ({ setActive }) => {
     setActive("/");
   }, [setActive]);
 
-  const deleteJob = (id) => {
+  const deleteJob = (id: string) => {
     setJobList([
       ...jobList.filter((job) => {
         return job.jobId !== id;

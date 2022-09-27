@@ -1,6 +1,7 @@
 import { useRecoilState } from "recoil";
 import { jobListFilterState } from "../../state/atoms";
 import { Select, Text, Box, createStyles } from "@mantine/core";
+import { FilterState } from "../../models/filterstate";
 
 const useStyles = createStyles((theme) => ({
   label: {
@@ -18,7 +19,8 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export const JobFilters = () => {
-  const [{ status, sort }, setFilters] = useRecoilState(jobListFilterState);
+  const [{ status, sort }, setFilters] =
+    useRecoilState<FilterState>(jobListFilterState);
   const { classes } = useStyles();
 
   return (
@@ -27,7 +29,7 @@ export const JobFilters = () => {
       <Select
         classNames={{ input: classes.input }}
         value={status}
-        onChange={(value) => setFilters({ status: value, sort })}
+        onChange={(value: string) => setFilters({ status: value, sort })}
         data={[
           { value: "Show All", label: "All jobs" },
           { value: "Show Uncompleted", label: "Uncompleted jobs" },

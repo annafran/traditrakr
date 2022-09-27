@@ -1,7 +1,7 @@
 import { jobListState, jobIdQuery } from "../../state/atoms";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { FunctionComponent, useState } from "react";
 import {
   Container,
   Button,
@@ -20,6 +20,7 @@ import { useForm, formList } from "@mantine/form";
 import { randomId } from "@mantine/hooks";
 import { formatDate } from "../../utils/formatDate";
 import React from "react";
+import { Job } from "../../models";
 
 const useStyles = createStyles(() => ({
   tableTitle: {
@@ -27,15 +28,15 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-const replaceJobAtIndex = (arr, index, newValue) => {
+const replaceJobAtIndex = (arr: Job[], index: number, newValue: Job) => {
   return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)];
 };
 
-export const ViewJob = () => {
+export const ViewJob: FunctionComponent = () => {
   const { id } = useParams();
   const [jobList, setJobList] = useRecoilState(jobListState);
   const [opened, setOpened] = useState(false);
-  const specificJob = useRecoilValue(jobIdQuery(id));
+  const specificJob = useRecoilValue<Job>(jobIdQuery(id));
   const { classes } = useStyles();
 
   const tableItems = [

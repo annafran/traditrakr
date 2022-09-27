@@ -1,6 +1,6 @@
 import { atom, selector, selectorFamily } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import { Job } from "../models";
+import { Job, FilterState } from "../models";
 
 const { persistAtom } = recoilPersist({
   key: "recoil-persist",
@@ -13,7 +13,7 @@ export const jobListState = atom<Job[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const jobListFilterState = atom({
+export const jobListFilterState = atom<FilterState>({
   key: "JobListFilter",
   default: { status: "Show All", sort: "Most Recent" },
 });

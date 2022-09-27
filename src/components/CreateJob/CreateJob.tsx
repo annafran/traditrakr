@@ -7,6 +7,7 @@ import { JobForm } from "./JobForm";
 import { FunctionComponent, useEffect } from "react";
 import { randomId } from "@mantine/hooks";
 import React from "react";
+import { Job } from "../../models";
 
 interface CreateJobProps {
   setActive: (link: string) => void;
@@ -17,10 +18,10 @@ export const CreateJob: FunctionComponent<CreateJobProps> = ({ setActive }) => {
     setActive("/createjob");
   }, [setActive]);
 
-  const [jobList, setJobList] = useRecoilState(jobListState);
+  const [jobList, setJobList] = useRecoilState<Job[]>(jobListState);
   const navigate = useNavigate();
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values: Job) => {
     setJobList([...jobList, values]);
     navigate("/");
   };
@@ -30,7 +31,7 @@ export const CreateJob: FunctionComponent<CreateJobProps> = ({ setActive }) => {
       onJobSubmit={handleSubmit}
       job={{
         jobId: uuid(),
-        createdDate: Date.now(),
+        createdDate: new Date(),
         clientName: "",
         clientEmail: "",
         jobName: "",

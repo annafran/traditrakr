@@ -11,6 +11,8 @@ import {
 } from "@mantine/core";
 
 import { useNavigate } from "react-router-dom";
+import { FunctionComponent } from "react";
+import { Job } from "../../models";
 
 const useStyles = createStyles((theme) => ({
   clientName: {
@@ -33,7 +35,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const handleColor = (status) => {
+const handleColor = (status: string) => {
   let color;
   switch (status) {
     case "completed":
@@ -57,34 +59,32 @@ const handleColor = (status) => {
   return color;
 };
 
-export const JobItem = ({ item, onDeleteJob }) => {
+interface JobItemProps {
+  item: Job;
+  onDeleteJob: (jobId: string) => void;
+}
+
+export const JobItem: FunctionComponent<JobItemProps> = ({
+  item,
+  onDeleteJob,
+}) => {
   const { classes } = useStyles();
   const navigate = useNavigate();
 
   return (
     <>
-      <Group className={classes.container} noWrap>
+      <Group noWrap>
         <Box className={classes.clientName}>{item.clientName}</Box>
         <Box data-testid="jobName" className={classes.jobName}>
           {item.jobName}
         </Box>
         <MediaQuery smallerThan="xs" styles={{ display: "none" }}>
-          <Badge
-            size="md"
-            className={classes.badge}
-            variant="filled"
-            color={handleColor(item.status)}
-          >
+          <Badge size="md" variant="filled" color={handleColor(item.status)}>
             {item.status}
           </Badge>
         </MediaQuery>
         <MediaQuery largerThan="xs" styles={{ display: "none" }}>
-          <Badge
-            size="xs"
-            className={classes.badge}
-            variant="filled"
-            color={handleColor(item.status)}
-          >
+          <Badge size="xs" variant="filled" color={handleColor(item.status)}>
             {item.status}
           </Badge>
         </MediaQuery>
