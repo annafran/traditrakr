@@ -9,7 +9,7 @@ describe("JobItem", () => {
       clientEmail: "sample@gmail.com",
       clientName: "Jimmy Brown",
       clientPhoneNumber: "0229796659",
-      createdDate: 1519211809934,
+      createdDate: new Date('2022-08-10'),
       jobId: "4f501873-757a-4649-961e-fd835b786b88",
       jobName: "Fix bathroom tap",
       status: "scheduled",
@@ -22,9 +22,6 @@ describe("JobItem", () => {
       <BrowserRouter>
         <JobItem
           item={item}
-          onDeleteJob={function (jobId: string): void {
-            throw new Error("Function not implemented.");
-          }}
         />
       </BrowserRouter>
     );

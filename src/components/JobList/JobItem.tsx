@@ -60,12 +60,12 @@ const handleColor = (status: string) => {
 
 interface JobItemProps {
   item: Job;
-  onDeleteJob: (jobId: string) => void;
+  onDeleteJob?: (jobId: string) => void;
 }
 
 export const JobItem: FunctionComponent<JobItemProps> = ({
   item,
-  onDeleteJob,
+  onDeleteJob = () => {},
 }) => {
   const { classes } = useStyles();
   const navigate = useNavigate();
