@@ -45,7 +45,10 @@ export const JobForm: FunctionComponent<JobFormProps> = ({
         placeholder="Notes"
         label="Notes"
         sx={{ flex: 1 }}
-        {...form.getListInputProps("notes", index, "note")}
+        {
+          // @ts-ignore
+          ...form.getListInputProps("notes", index, "note")
+        }
       />
       <ActionIcon
         color="red"
@@ -114,10 +117,8 @@ export const JobForm: FunctionComponent<JobFormProps> = ({
                 color="orange"
                 size="xs"
                 onClick={() =>
-                  form.addListItem("notes", {
-                    note: "",
-                    key: randomId(),
-                  })
+                  // @ts-ignore
+                  form.addListItem("notes", { note: "", key: randomId() })
                 }
               >
                 Add note

@@ -71,7 +71,7 @@ export const ViewJob: FunctionComponent = () => {
     },
   });
 
-  const handleSubmit = (values, jobItem) => {
+  const handleSubmit = (values: Job, jobItem: Job) => {
     const index = jobList.findIndex((item) => item === jobItem);
     const updatedJobList = replaceJobAtIndex(jobList, index, {
       ...values,
@@ -99,7 +99,7 @@ export const ViewJob: FunctionComponent = () => {
     </Group>
   ));
 
-  const handleColor = (status) => {
+  const handleColor = (status: string) => {
     let color;
     switch (status) {
       case "completed":
@@ -153,7 +153,6 @@ export const ViewJob: FunctionComponent = () => {
           <Select
             label="Change job status"
             placeholder="Select a status"
-            value={specificJob.status}
             data={[
               { value: "scheduled", label: "scheduled" },
               { value: "active", label: "active" },

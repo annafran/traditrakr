@@ -28,7 +28,6 @@ const useStyles = createStyles((theme) => ({
   jobName: {
     padding: "5px",
     fontSize: "0.9rem",
-    flexGrow: "1",
     [theme.fn.smallerThan("xs")]: {
       fontSize: "0.7rem",
     },
@@ -101,7 +100,6 @@ export const JobItem: FunctionComponent<JobItemProps> = ({
           <Button
             color="orange"
             p={5}
-            size={12}
             onClick={() => navigate(`/jobs/${item.jobId}`)}
           >
             View
@@ -113,12 +111,7 @@ export const JobItem: FunctionComponent<JobItemProps> = ({
           </Button>
         </MediaQuery>
         <MediaQuery largerThan="xs" styles={{ display: "none" }}>
-          <Button
-            color="red"
-            p={5}
-            size={12}
-            onClick={() => onDeleteJob(item.jobId)}
-          >
+          <Button color="red" p={5} onClick={() => onDeleteJob(item.jobId)}>
             Delete
           </Button>
         </MediaQuery>
