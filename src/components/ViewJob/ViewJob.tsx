@@ -19,6 +19,7 @@ import { Trash } from "tabler-icons-react";
 import { useForm, formList } from "@mantine/form";
 import { randomId } from "@mantine/hooks";
 import { formatDate } from "../../utils/formatDate";
+import React from "react";
 
 const useStyles = createStyles(() => ({
   tableTitle: {

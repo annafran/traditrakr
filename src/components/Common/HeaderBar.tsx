@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import {
   createStyles,
   Header,
@@ -82,7 +82,15 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export const HeaderBar = ({ active, setActive }) => {
+interface HeaderBarProps {
+  active: string;
+  setActive: (link: string) => void;
+}
+
+export const HeaderBar: FunctionComponent<HeaderBarProps> = ({
+  active,
+  setActive,
+}) => {
   const navigate = useNavigate();
   const links = [
     { link: "/", label: "Jobs" },

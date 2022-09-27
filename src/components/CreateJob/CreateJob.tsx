@@ -4,10 +4,15 @@ import { formList } from "@mantine/form";
 import { jobListState } from "../../state/atoms";
 import { useNavigate } from "react-router-dom";
 import { JobForm } from "./JobForm";
-import { useEffect } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { randomId } from "@mantine/hooks";
+import React from "react";
 
-export const CreateJob = ({ setActive }) => {
+interface CreateJobProps {
+  setActive: (link: string) => void;
+}
+
+export const CreateJob: FunctionComponent<CreateJobProps> = ({ setActive }) => {
   useEffect(() => {
     setActive("/createjob");
   }, [setActive]);

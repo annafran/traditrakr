@@ -1,12 +1,13 @@
 import { atom, selector, selectorFamily } from "recoil";
 import { recoilPersist } from "recoil-persist";
+import { Job } from "../models";
 
 const { persistAtom } = recoilPersist({
   key: "recoil-persist",
   storage: localStorage,
 });
 
-export const jobListState = atom({
+export const jobListState = atom<Job[]>({
   key: "JobList",
   default: [],
   effects_UNSTABLE: [persistAtom],
@@ -17,7 +18,7 @@ export const jobListFilterState = atom({
   default: { status: "Show All", sort: "Most Recent" },
 });
 
-const filterItems = (filter, jobList) => {
+const filterItems = (filter: string, jobList: Job[]) => {
   switch (filter) {
     case "Show Completed":
       return jobList.filter((item) => item.status === "completed");
@@ -36,15 +37,17 @@ const filterItems = (filter, jobList) => {
   }
 };
 
-const sortItems = (sort, jobList) => {
+const sortItems = (sort: string, jobList: Job[]) => {
   switch (sort) {
     case "Most Recent":
       return jobList.sort(
-        (itema, itemb) => itemb.createdDate - itema.createdDate
+        (itema, itemb) =>
+          itemb.createdDate.getTime() - itema.createdDate.getTime()
       );
     case "Least Recent":
       return jobList.sort(
-        (itema, itemb) => itema.createdDate - itemb.createdDate
+        (itema, itemb) =>
+          itema.createdDate.getTime() - itemb.createdDate.getTime()
       );
     default:
       return jobList;

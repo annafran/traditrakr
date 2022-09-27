@@ -1,13 +1,17 @@
 import { filteredJobListState, jobListState } from "../../state/atoms";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { useEffect } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { Container } from "@mantine/core";
 import { JobFilters } from "./JobFilters";
 import { JobItem } from "./JobItem";
 import { JobSort } from "./JobSort";
 import { Text, Group } from "@mantine/core";
 
-export const JobList = ({ setActive }) => {
+interface JobListProps {
+  setActive: (link: string) => void;
+}
+
+export const JobList: FunctionComponent<JobListProps> = ({ setActive }) => {
   const [jobList, setJobList] = useRecoilState(jobListState);
   const filteredJobList = useRecoilValue(filteredJobListState);
   useEffect(() => {
