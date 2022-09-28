@@ -42,12 +42,14 @@ const sortItems = (sort: string, jobList: Job[]) => {
     case "Most Recent":
       return jobList.sort(
         (itema, itemb) =>
-          itemb.createdDate.getTime() - itema.createdDate.getTime()
+          new Date(itemb.createdDate).getTime() -
+          new Date(itema.createdDate).getTime()
       );
     case "Least Recent":
       return jobList.sort(
         (itema, itemb) =>
-          itema.createdDate.getTime() - itemb.createdDate.getTime()
+          new Date(itema.createdDate).getTime() -
+          new Date(itemb.createdDate).getTime()
       );
     default:
       return jobList;
