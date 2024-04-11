@@ -98,7 +98,7 @@ export const HeaderBar: FunctionComponent = () => {
             key={link.label}
             href={link.link}
             className={cx(classes.link, {
-                [classes.linkActive]: link.link == pathname,
+                [classes.linkActive]: link.link === pathname,
             })}
             onClick={(event) => {
                 event.preventDefault();

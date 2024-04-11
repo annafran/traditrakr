@@ -7,11 +7,6 @@ import { HeaderBar } from "./components/Common";
 import { CreateJob } from "./components/CreateJob";
 import { ViewJob } from "./components/ViewJob";
 
-interface Link {
-    link: string;
-    label: string;
-}
-
 const App: FunctionComponent = () => {
     return (
         <MantineProvider withGlobalStyles withNormalizeCSS>
