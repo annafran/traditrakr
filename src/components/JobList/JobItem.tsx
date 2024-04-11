@@ -11,6 +11,8 @@ import {
 } from "@mantine/core";
 
 import { useNavigate } from "react-router-dom";
+import { FunctionComponent } from "react";
+import { Job } from "../../models";
 
 const useStyles = createStyles((theme) => ({
   clientName: {
@@ -26,14 +28,14 @@ const useStyles = createStyles((theme) => ({
   jobName: {
     padding: "5px",
     fontSize: "0.9rem",
-    flexGrow: "1",
+    flexGrow: 1,
     [theme.fn.smallerThan("xs")]: {
       fontSize: "0.7rem",
     },
   },
 }));
 
-const handleColor = (status) => {
+const handleColor = (status: string) => {
   let color;
   switch (status) {
     case "completed":
@@ -57,34 +59,32 @@ const handleColor = (status) => {
   return color;
 };
 
-export const JobItem = ({ item, onDeleteJob }) => {
+interface JobItemProps {
+  item: Job;
+  onDeleteJob?: (jobId: string) => void;
+}
+
+export const JobItem: FunctionComponent<JobItemProps> = ({
+  item,
+  onDeleteJob = () => {},
+}) => {
   const { classes } = useStyles();
   const navigate = useNavigate();
 
   return (
     <>
-      <Group className={classes.container} noWrap>
+      <Group noWrap>
         <Box className={classes.clientName}>{item.clientName}</Box>
         <Box data-testid="jobName" className={classes.jobName}>
           {item.jobName}
         </Box>
         <MediaQuery smallerThan="xs" styles={{ display: "none" }}>
-          <Badge
-            size="md"
-            className={classes.badge}
-            variant="filled"
-            color={handleColor(item.status)}
-          >
+          <Badge size="md" variant="filled" color={handleColor(item.status)}>
             {item.status}
           </Badge>
         </MediaQuery>
         <MediaQuery largerThan="xs" styles={{ display: "none" }}>
-          <Badge
-            size="xs"
-            className={classes.badge}
-            variant="filled"
-            color={handleColor(item.status)}
-          >
+          <Badge size="xs" variant="filled" color={handleColor(item.status)}>
             {item.status}
           </Badge>
         </MediaQuery>
@@ -101,6 +101,7 @@ export const JobItem = ({ item, onDeleteJob }) => {
           <Button
             color="orange"
             p={5}
+            // @ts-ignore
             size={12}
             onClick={() => navigate(`/jobs/${item.jobId}`)}
           >
@@ -116,6 +117,7 @@ export const JobItem = ({ item, onDeleteJob }) => {
           <Button
             color="red"
             p={5}
+            // @ts-ignore
             size={12}
             onClick={() => onDeleteJob(item.jobId)}
           >

@@ -11,6 +11,8 @@ import {
 import { randomId } from "@mantine/hooks";
 import { Trash } from "tabler-icons-react";
 import { useForm } from "@mantine/form";
+import { FunctionComponent } from "react";
+import { Job } from "../../models";
 
 const useStyles = createStyles(() => ({
   input: {
@@ -18,7 +20,15 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-export const JobForm = ({ job, onJobSubmit }) => {
+interface JobFormProps {
+  job: Job;
+  onJobSubmit: (values: Job) => void;
+}
+
+export const JobForm: FunctionComponent<JobFormProps> = ({
+  job,
+  onJobSubmit,
+}) => {
   const { classes } = useStyles();
 
   const form = useForm({
@@ -35,7 +45,10 @@ export const JobForm = ({ job, onJobSubmit }) => {
         placeholder="Notes"
         label="Notes"
         sx={{ flex: 1 }}
-        {...form.getListInputProps("notes", index, "note")}
+        {
+          // @ts-ignore
+          ...form.getListInputProps("notes", index, "note")
+        }
       />
       <ActionIcon
         color="red"
@@ -104,10 +117,8 @@ export const JobForm = ({ job, onJobSubmit }) => {
                 color="orange"
                 size="xs"
                 onClick={() =>
-                  form.addListItem("notes", {
-                    note: "",
-                    key: randomId(),
-                  })
+                  // @ts-ignore
+                  form.addListItem("notes", { note: "", key: randomId() })
                 }
               >
                 Add note
@@ -115,14 +126,7 @@ export const JobForm = ({ job, onJobSubmit }) => {
             </Group>
           </Box>
         </div>
-        <Button
-          radius="xl"
-          size="md"
-          mt="1rem"
-          type="submit"
-          color="red"
-          className={classes.control}
-        >
+        <Button radius="xl" size="md" mt="1rem" type="submit" color="red">
           Add Job
         </Button>
       </form>
